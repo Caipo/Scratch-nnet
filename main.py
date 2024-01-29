@@ -7,12 +7,10 @@ if __name__ == '__main__':
     data = r'/Users/work/Data/mnist'
 
     train_images = np.load(data + r'/train_images.npy') / 255 
-    train_labels = np.load(data + r'/train_labels.npy') # // 10
-    #train_images = train_images[:, :, : train_images.shape[2] // 2 ]
+    train_labels = np.load(data + r'/train_labels.npy') 
 
     test_images = np.load(data + r'/test_images.npy') / 255
-    test_labels = np.load(data + r'/test_labels.npy') # //10
-    #test_images = test_images[:, :, : test_images.shape[2] // 2 ]
+    test_labels = np.load(data + r'/test_labels.npy') 
    
 
     test_pair = lambda i: (train_images[i], train_labels[i])
@@ -27,6 +25,7 @@ if __name__ == '__main__':
 
     net.train(train_images, train_labels, 5)
 
+    # Accuracy 
     for idx, img in enumerate(test_images):
         temp = net.forwards( img, True) == test_labels[idx]
 
