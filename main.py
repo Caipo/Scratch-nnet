@@ -1,6 +1,7 @@
 import numpy as np
 from random import randint
 from nnet import Network
+from aux import plot_losses
 import threading
 
 if __name__ == '__main__':
@@ -16,25 +17,10 @@ if __name__ == '__main__':
     test_pair = lambda i: (train_images[i], train_labels[i])
 
     test = train_images[0]
-    net = Network()
-   
+    net = Network(4, 1500)
 
-    losses = []
-    right = []
-    wrong = []
-
-    net.train(train_images, train_labels, 5)
-
-    # Accuracy 
-    for idx, img in enumerate(test_images):
-        temp = net.forwards( img, True) == test_labels[idx]
-
-        if temp: 
-            right.append(test_labels[idx])
-
-        else:
-            wrong.append(test_labels[idx])
-        
-        
+    losses = net.train(train_images, train_labels, 5)
+    plot_losses(losses)
     net.evaluate(test_images, test_labels)
     breakpoint()
+    exit()

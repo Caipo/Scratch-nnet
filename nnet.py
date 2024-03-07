@@ -10,6 +10,7 @@ class Network:
             )
     
 
+    # Loss Function
     @staticmethod
     def cross_entropy(y, y_hat):
         return -1 * np.sum( y * np.log(y_hat))
@@ -190,7 +191,7 @@ class Network:
             print('epoch: ', epoch, '/', n_epoch)
             if epoch != 0:
                 print(round(np.mean(losses), 4))
-            losses = [] 
+            temp_losses = list() 
 
             for idx in tqdm(range(len(images))):
                 label = labels[idx]
@@ -198,10 +199,13 @@ class Network:
 
                 self.backwards_propogate(image, label)
 
-                losses.append(self.loss)
+                temp_losses.append(self.loss)
                 if idx % 1000 == 0:
-                    self.rate = self.rate / 1.01
+                    self.learn_rate = self.learn_rate / 1.01
                     #print(round(np.mean(losses), 4))
+            losses.append(np.mean(temp_losses))
+
+        return losses
 
 
     def evaluate(self, images, labels):
@@ -209,7 +213,7 @@ class Network:
         wrong = []
 
         for idx, label in enumerate(labels):
-            temp = net.forwards( img, True) == label 
+            temp = self.forwards(images[idx], True) == label 
 
             if temp: 
                 right.append(label)
@@ -217,6 +221,4 @@ class Network:
             else:
                 wrong.append(label)
          
-        print('right: ', {i : right.count(i) for i in set(right)})
-        print('wrong: ', {i : wrong.count(i) for i in set(wrong)}) 
-        print('accuracy: ', len(right) / (len(right) + len(wrong) ))
+        print('accuracy: ', len(right) / (len(right) + len(wrong)))
