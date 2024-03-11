@@ -13,7 +13,8 @@ Activations: Currnetly the hidden layers use the sigmoid activation function and
 
 Loss: Using the cross entropy loss function.
 
-Want to play with the code, try the colab notebook here 
+Want to play with the code, try the colab notebook here:
+
 https://colab.research.google.com/drive/1VZv3XZRXvsJ4OpIHFQVZ_PSfY4F_xoLX?usp=sharing
 
 # Requirements 
